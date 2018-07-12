@@ -1,0 +1,6 @@
+usr/local/bin/emixil-qt usr/bin
+share/pixmaps/emixil32.xpm usr/share/pixmaps
+share/pixmaps/emixil16.xpm usr/share/pixmaps
+share/pixmaps/emixil128.png usr/share/pixmaps
+debian/emixil-qt.desktop usr/share/applications
+debian/emixil-qt.protocol usr/share/kde4/services/

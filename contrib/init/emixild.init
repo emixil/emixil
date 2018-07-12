@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  emixild The Emixil Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: emixild
+# processname: emixild
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/emixild, see below
+if [ -f /etc/sysconfig/emixild ]; then
+        . /etc/sysconfig/emixild
+fi
+
+RETVAL=0
+
+prog=emixild
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/emixild
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/emixild}
+
+# emixild defaults to /usr/bin/emixild, override with BITCOIND_BIN
+emixild=${BITCOIND_BIN-/usr/bin/emixild}
+
+# emixild opts default to -disablewallet, override with BITCOIND_OPTS
+emixild_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $emixild $emixild_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

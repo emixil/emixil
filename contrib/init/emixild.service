@@ -1,0 +1,22 @@
+[Unit]
+Description=Emixil's distributed currency daemon
+After=network.target
+
+[Service]
+User=emixilcore
+Group=emixilcore
+
+Type=forking
+PIDFile=/var/lib/emixild/emixild.pid
+ExecStart=/usr/bin/emixild -daemon -pid=/var/lib/emixild/emixild.pid \
+-conf=/etc/emixilcore/emixil.conf -datadir=/var/lib/emixild -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

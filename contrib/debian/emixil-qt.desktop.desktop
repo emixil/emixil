@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Emixil
+Comment=Emixil P2P Cryptocurrency
+Exec=emixil-qt %u
+Terminal=false
+Type=Application
+Icon=emixil128
+MimeType=x-scheme-handler/emixil;
+Categories=Office;Finance;
+Name[en_US]=emixil-qt.desktop
